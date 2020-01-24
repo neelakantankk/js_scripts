@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://ns.adobe.com/acrobat/workflow/2012" title="Extract Pages with Comments" description="" majorVersion="1" minorVersion="0">
+	<Group label="Untitled">
+		<Command name="JavaScript" pauseBefore="false" promptUser="false">
+			<Items>
+				<Item name="ScriptCode" type="text" value="console.println(&apos;&apos;);&#xD;&#xA;// Regular expression to get base filename&#xD;&#xA;var re = /\.pdf$/i;&#xD;&#xA;// filename is the base name of the file Acrobat is working on&#xD;&#xA;//I&apos;d recommend Prefixing files with your initials to keep things clear&#xD;&#xA;&#xD;&#xA;var sourcePath = event.target.path;&#xD;&#xA;try {&#xD;&#xA;     var temp_doc = app.newDoc();&#xD;&#xA;} catch (e) {&#xD;&#xA;    console.println(&quot;Could not create new doc: &quot; + e);&#xD;&#xA;    throw &quot;Could not create required temporary document. Skipping &quot; + event.target.path;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;var destPath = event.target.path.split(&apos;/&apos;);&#xD;&#xA;destPath.pop();&#xD;&#xA;var destName = event.target.documentFileName.replace(re,&quot;_Annots.pdf&quot;);&#xD;&#xA;destPath.push(destName);&#xD;&#xA;destPath = destPath.join(&apos;/&apos;);&#xD;&#xA;temp_doc.saveAs(destPath);&#xD;&#xA;&#xD;&#xA;//Required for getAnnots to function correctly&#xD;&#xA;event.target.syncAnnotScan();&#xD;&#xA;&#xD;&#xA;for(var i=0;i&lt;event.target.numPages;i++) {&#xD;&#xA;    if(event.target.getAnnots({nPage:i})) {&#xD;&#xA;        console.println(i+1);&#xD;&#xA;        try { &#xD;&#xA;            temp_doc.insertPages({&#xD;&#xA;                                nPage: temp_doc.numPages - 1,&#xD;&#xA;                                cPath:sourcePath,&#xD;&#xA;                                nStart: i,&#xD;&#xA;                               });&#xD;&#xA;        } catch (e) { console.println(&apos;Aborted: &apos; + e); }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;try {&#xD;&#xA;    temp_doc.deletePages({nStart:0});&#xD;&#xA;    temp_doc.saveAs(destPath);&#xD;&#xA;    &#xD;&#xA;} catch (e) {&#xD;&#xA;    console.println(&quot;Could not delete pages: &quot; + e);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;temp_doc.closeDoc(true);"/>
+				<Item name="ScriptName" type="text" value=""/>
+			</Items>
+		</Command>
+	</Group>
+</Workflow>
