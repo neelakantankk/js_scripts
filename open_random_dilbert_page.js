@@ -42,12 +42,28 @@ function getRandomDate(start_date, end_date) {
 var first_strip = new Date('1989-04-16');
 var today = new Date();
 
+var main_el = document.getElementsByTagName('main');
+
+if (!main_el) {
+    main_el = document.createElement('main');
+    document.body.appendChild(main_el);
+} else {
+    main_el = main_el[0];
+}
+
+var input_el = document.createElement('input');
+input_el.setAttribute('id','trial');
+input_el.setAttribute('type','button');
+input_el.setAttribute('value','Click Me!');
+
+main_el.prepend(document.createElement('div').appendChild(input_el));
+
 var click_button = document.getElementById("trial");
 
 click_button.addEventListener('click',function() {
 	let random_date = getRandomDate(first_strip,today);
   url_to_open = `https://www.dilbert.com/strip/${random_date}`;
-  let id = `Dilbert - ${random_date}`;
+  let id = `Dilbert - Random Comic`;
   
   window.open(url_to_open, id);  
 });
