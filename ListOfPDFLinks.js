@@ -13,5 +13,7 @@ for(var i=0;i<linksToFiles.length;i++){
   console.log(linksToFiles[i]);
 }
 
-var file = new File(linksToFiles,"/c/Users/k999neel/Documents/Trial.txt");
+// let path_to_putput = 
+
+var file = new File(linksToFiles,`${path_to_output}`);
 console.log("Done");
